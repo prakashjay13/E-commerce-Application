@@ -13,7 +13,7 @@
                 <img src="{{asset('dist/img/avatar5.png')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Asset Tracker</a>
+                <a href="#" class="d-block">Ecomm-Application</a>
             </div>
         </div>
 
