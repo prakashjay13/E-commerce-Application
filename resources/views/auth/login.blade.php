@@ -3,7 +3,7 @@
 @include('admin.includes.head')
 <body>
     @include('admin.includes.nav')
-    @include('admin.includes.sidebar')
+    
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

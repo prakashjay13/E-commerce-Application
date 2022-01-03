@@ -52,8 +52,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Users</h3>
-                                    <a style="margin: 19px;" href="{{ route('users.create')}}" class="btn btn-warning">New user</a>
+                                    <h3 class="card-title">Products</h3>
+                                    <a style="margin: 19px;" href="{{ route('products.create')}}" class="btn btn-warning">New product</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -63,29 +63,31 @@
                                             <tr>
                                                 <td>ID</td>
                                                 <td>Name</td>
-                                                <td>Email</td>
-                                                <td>Status</td>
-                                                <td>Role</td>
+                                                <td>Type</td>
+                                                <td>Category_id</td>
+                                                <td>Price</td>
+                                                <td>Quantity</td>
                                                 <td colspan=2>Actions</td>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($users as $user)
+                                            @foreach($products as $product)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->firstname}} {{$user->lastname}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->status}}</td>
-                                                <td>{{$user->role}}</td>
+                                                <td>{{$product->id}}</td>
+                                                <td>{{$product->name}} </td>
+                                                <td>{{$product->type}}</td>
+                                                <td>{{$product->category_id}}</td>
+                                                <td>{{$product->price}}</td>
+                                                <td>{{$product->quantity}}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning">Edit</a>
+                                                    <a href="{{ route('products.edit', $product->id)}}" class="btn btn-warning">Edit</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('users.destroy', $user->id)}}" method="post">
+                                                    <form action="{{ route('products.destroy', $product->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>
+                                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

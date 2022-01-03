@@ -52,37 +52,45 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Users</h3>
-                                    <a style="margin: 19px;" href="{{ route('users.create')}}" class="btn btn-warning">New user</a>
+                                    <h3 class="card-title">Banners</h3>
+                                    <a style="margin: 19px;" href="{{ route('banners.create')}}" class="btn btn-warning">New Banner</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="example2" class="table table-bordered table-hover">
+                                    <table  class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                             <tr>
                                                 <td>ID</td>
-                                                <td>Name</td>
-                                                <td>Email</td>
+                                                <td>Heading</td>
+                                                <td>Description</td>
+                                                <td>Image</td>
                                                 <td>Status</td>
-                                                <td>Role</td>
                                                 <td colspan=2>Actions</td>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($users as $user)
+                                            @foreach($data as $a)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->firstname}} {{$user->lastname}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->status}}</td>
-                                                <td>{{$user->role}}</td>
+                                                <td>{{$a->id}}</td>
+                                                <td>{{$a->heading}}</td>
+                                                <td>{{$a->description}}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning">Edit</a>
+                                                    <img src="{{ asset('storage/'.$a->image)}}" width="100px" height="100px">
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('users.destroy', $user->id)}}" method="post">
+                                                    @if($a->status=='1')
+                                                      hidden
+                                                    @else
+                                                      visible
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('banners.edit',$a->id)}}" class="btn btn-warning">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('banners.destroy', $a->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>

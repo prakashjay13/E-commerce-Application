@@ -35,63 +35,52 @@
     <div class="alert alert-danger">{{Session::get('msg')}}</div>
     @endif
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-3">Update user</h1>
+        <h1 class="display-3">Update product</h1>
         
-        <form method="post" action="{{ route('users.update', $user->id) }}">
+        <form method="post" action="{{ route('products.update', $product->id) }}">
             @method('PATCH') 
             @csrf
             <div class="row form-group m-auto col-5">
-                <label class="form-check-label">First Name:</label>
-                <input type="text" class="form-control" name="firstname" value={{ $user->firstname }} />
-                @if($errors->has('firstname'))
-                <label class="text text-danger">{{$errors->first('firstname')}}</label>  
+                <label class="form-check-label">Name:</label>
+                <input type="text" class="form-control" name="name" value={{ $product->name }} />
+                @if($errors->has('name'))
+                <label class="text text-danger">{{$errors->first('name')}}</label>  
                 @endif 
             </div>
             <br>
 
             <div class="row form-group m-auto col-5">
-                <label class="form-check-label">Last Name:</label>
-                <input type="text" class="form-control" name="lastname" value={{ $user->lastname }} />
-                @if($errors->has('lastname'))
-                <label class="text text-danger">{{$errors->first('lastname')}}</label>  
+                <label class="form-check-label">Price:</label>
+                <input type="text" class="form-control" name="price" value={{ $product->price }} />
+                @if($errors->has('price'))
+                <label class="text text-danger">{{$errors->first('price')}}</label>  
                 @endif 
             </div>
              <br>
             <div class="row form-group m-auto col-5">
-                <label class="form-check-label">Email:</label>
-                <input type="text" class="form-control" name="email" value={{ $user->email }} />
-                @if($errors->has('email'))
-                <label class="text text-danger">{{$errors->first('email')}}</label>  
+                <label class="form-check-label">Quantity:</label>
+                <input type="number" class="form-control" min="1" max="20"  name="quantity" value={{ $product->quantity }} />
+                @if($errors->has('quantity'))
+                <label class="text text-danger">{{$errors->first('quantity')}}</label>  
                 @endif 
             </div>
             <br>
+            
             <div class="row form-group m-auto col-5">
-                <label class="form-check-label">Status: <br>
-              <input type="radio" class="form-check-input" name="status" value={{ $user->status }}>Active <br>
-              <input type="radio" class="form-check-input" name="status" value={{ $user->status }}>Inactive
-                </label>
-              @if($errors->has('status'))
-                 <label class="text text-danger">{{$errors->first('status')}}</label>  
-                 @endif   
-              </label>
-           
-            </div>
-                <br>
-                <div class="row form-group m-auto col-5">
-                    Role:
+                    Type:
                       
-                <select name="role" class="form-control">
-                    @if($errors->has('role'))
-                    <label class="text-danger">{{$errors->first('role')}}</label>
+            <select name="category" class="form-control">
+                    @if($errors->has('category'))
+                    <label class="text-danger">{{$errors->first('category')}}</label>
                     @endif 
-                <option>Roles Type</option>
-                @foreach($data as $a)
+                <option>Type</option>
+                @foreach($cat as $c)
                  
-                <option value="{{$a['role_name']}}">{{$a['role_name']}}</option>   
+                <option value="{{$c['id']}}">{{$c['title']}}</option>   
              @endforeach
                 </select>
                 </div> 
-                <input type="hidden" name="id" value="{{$user->id}}">
+                <input type="hidden" name="uid" value="{{ $product->id }}">
                 <div class="text-center mt-2">
               <input type="submit" class="btn btn-success" value="Update"/>
                 </div>

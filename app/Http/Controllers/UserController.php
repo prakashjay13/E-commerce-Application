@@ -23,7 +23,11 @@ class UserController extends Controller
     }
 
 
-
+/**
+ * To fetch roles in user table
+ *
+ * @return void
+ */
     public function roles(){
         $data = Role::all();
 
@@ -38,7 +42,9 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('users.create');
+        $data = Role::all();
+
+        return view('users.create',compact('data'));
     }
 
     /**
@@ -53,7 +59,8 @@ class UserController extends Controller
             'firstname' => 'required|regex:/^[a-zA-Z ]{2,100}$/',
             'lastname' => 'required|regex:/^[a-zA-Z ]{2,100}$/',
             'email' => 'required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
-            'password' => 'required',
+            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',
+            'cpass'=> 'required_with:password|same:password',
             'status' => 'required',
             'role' => 'required'
         ], [
@@ -68,6 +75,10 @@ class UserController extends Controller
             'email.regex' => "Enter valid format (example: abc@pqr.xyz)",
 
             'password.required' => "Enter password",
+            'password.regex' => "Minimum 8 characters | at least one uppercase letter, one lowercase letter and one number",
+
+            'cpass.required_with' => "Re-enter password",
+            'cpass.same' => "Password doesn't match",
 
             'status.required' => "Select status",
 
@@ -85,7 +96,7 @@ class UserController extends Controller
             $user->role = $req->role;
             if ($user->save()) {
 
-                return redirect('/users')->with('success', 'User added!');
+                return redirect('/users')->with('msg', 'User added!');
             } 
             else {
 
@@ -114,9 +125,11 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $user = User::find($id);
-
-        return view('users.edit', compact('user')); 
+        $data = Role::all();
+        $user = User::findOrFail($id);
+        
+        return view('users.edit', compact('user','data')); 
+        
     }
 
     /**
@@ -126,27 +139,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $req)
     {
-        //
-        $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required|email',
-            'password'=>'required',
-            'status'=>'required',
-            'role'=>'required'
+        User::where('id',$req->id)->update([
+            'firstname'=>$req->firstname,
+            'lastname'=>$req->lastname,
+            'email'=>$req->email,
+            'status'=>$req->status,
+            'role'=>$req->role,
+    
         ]);
-        $user = User::find($id);
-        $user->firstname =  $request->get('firstname');
-        $user->lastname = $request->get('lastname');
-        $user->email = $request->get('email');
-        $user->password = $request->get('password');
-        $user->status = $request->get('status');
-        $user->role = $request->get('role');
-        $user->save();
-
-        return redirect('/users')->with('success', 'User updated!');
+        return redirect('/users'); 
+       
     }
 
     /**
@@ -158,9 +162,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect('/users')->with('success', 'User deleted!');
+        return redirect('/users')->with('msg', 'User deleted!');
     }
 }

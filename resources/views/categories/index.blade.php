@@ -52,8 +52,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Users</h3>
-                                    <a style="margin: 19px;" href="{{ route('users.create')}}" class="btn btn-warning">New user</a>
+                                    <h3 class="card-title">Categories</h3>
+                                    <a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-warning">New category</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -62,27 +62,23 @@
                                             <tr>
                                             <tr>
                                                 <td>ID</td>
-                                                <td>Name</td>
-                                                <td>Email</td>
-                                                <td>Status</td>
-                                                <td>Role</td>
+                                                <td>Title</td>
+                                                <td>Description</td>
                                                 <td colspan=2>Actions</td>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($users as $user)
+                                            @foreach($categories as $cat)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->firstname}} {{$user->lastname}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->status}}</td>
-                                                <td>{{$user->role}}</td>
+                                                <td>{{$cat->id}}</td>
+                                                <td>{{$cat->title}} </td>
+                                                <td>{{$cat->description}}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning">Edit</a>
+                                                    <a href="{{ route('categories.edit', $cat->id)}}" class="btn btn-warning">Edit</a>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('users.destroy', $user->id)}}" method="post">
+                                                    <form action="{{ route('categories.destroy', $cat->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>

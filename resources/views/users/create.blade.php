@@ -74,21 +74,27 @@
           </div>
           <br>
           <div class="row form-group m-auto col-5">
-              <label for="status">Status:</label>
-              <input type="radio"  name="status" value="Active">
-              @if($errors->has('status'))
-              <label class="text-danger">{{$errors->first('status')}}</label>
-              @endif 
-              <label for="active">Active</label><br>
-              <input type="radio"  name="status" value="Inactive">
-                  @if($errors->has('status'))
-                  <label class="text-danger">{{$errors->first('status')}}</label>
-                 @endif 
-            <label for="inactive">Inactive</label><br>
-          </div>
+            <label for="cpass">Confirm Password:</label>
+            <input type="password" class="form-control" name="cpass"/>
+            @if($errors->has('cpass'))
+            <label class="text-danger">{{$errors->first('cpass')}}</label>
+            @endif 
+        </div>
+        <br>
+          <div class="row form-group m-auto col-5">
+            <label for="status">Status: <br>
+          <input type="radio" class="form-check-input" name="status" value="1">Active <br>
+          <input type="radio" class="form-check-input" name="status" value="0">Inactive <br>
+          @if($errors->has('status'))
+             <label class="text text-danger">{{$errors->first('status')}}</label>  
+             @endif   
+        </label>
+       
+        
+            </div>
 
           <div class="row form-group m-auto col-5">
-            Roles
+            <label for="status">Role: </label>
               
         <select name="role" class="form-control">
             @if($errors->has('role'))
@@ -97,12 +103,14 @@
         <option>Roles Type</option>
         @foreach($data as $a)
          
-        <option value="{{$a['id']}}">{{$a['role_name']}}</option>   
+        <option value="{{$a['role_name']}}">{{$a['role_name']}}</option>   
      @endforeach
         </select>
         </div> 
-          <br>                       
+          <br>
+          <div class="row form-group m-auto col-5">                       
           <button type="submit" class="btn btn-success">Add user</button>
+          </div>
       </form>
   </div>
 </div>
