@@ -44,7 +44,7 @@
           @csrf
           <div class="row form-group m-auto col-5">  
               <label for="name">Name:</label>
-              <input type="text" class="form-control" name="name"/>
+              <input type="text" class="form-control" value="{{old('name')}}" name="name"/>
               @if($errors->has('name'))
               <label class="text-danger">{{$errors->first('name')}}</label>
               @endif 
@@ -53,14 +53,14 @@
 
           <div class="row form-group m-auto col-5">
               <label for="price">Price:</label>
-              <input type="text" class="form-control" name="price"/>
+              <input type="text" class="form-control" value="{{old('price')}}" name="price"/>
               @if($errors->has('price'))
               <label class="text-danger">{{$errors->first('price')}}</label>
               @endif 
           </div>
           <div class="row form-group m-auto col-5">
               <label for="quantity">Quantity:</label>
-              <input type="number" class="form-control" min="1" max="20" name="quantity"/>
+              <input type="number" class="form-control" value="{{old('quantity')}}" min="1" max="20" name="quantity"/>
               @if($errors->has('quantity'))
               <label class="text-danger">{{$errors->first('quantity')}}</label>
               @endif 
@@ -73,15 +73,16 @@
             <label for="title">Title: </label>
               
         <select name="category" class="form-control">
-            {{-- @if($errors->has('title'))
-            <label class="text-danger">{{$errors->first('title')}}</label>
-            @endif  --}}
+           
         <option>Category Type</option>
         @foreach($cat as $c)
          
         <option value="{{$c['id']}}">{{$c['title']}}</option>   
      @endforeach
         </select>
+        @if($errors->has('category'))
+        <label class="text-danger">{{$errors->first('category')}}</label>
+        @endif 
         </div> 
           <br>
           <div class="row form-group m-auto col-5">                       

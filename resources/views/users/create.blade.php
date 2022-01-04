@@ -44,7 +44,7 @@
           @csrf
           <div class="row form-group m-auto col-5">  
               <label for="firstname">First Name:</label>
-              <input type="text" class="form-control" name="firstname"/>
+              <input type="text" class="form-control" value="{{old('firstname')}}" name="firstname"/>
               @if($errors->has('firstname'))
               <label class="text-danger">{{$errors->first('firstname')}}</label>
               @endif 
@@ -52,7 +52,7 @@
 
           <div class="row form-group m-auto col-5">
               <label for="lastname">Last Name:</label>
-              <input type="text" class="form-control" name="lastname"/>
+              <input type="text" class="form-control" value="{{old('lastname')}}" name="lastname"/>
               @if($errors->has('lastname'))
               <label class="text-danger">{{$errors->first('lastname')}}</label>
               @endif 
@@ -60,14 +60,14 @@
 
           <div class="row form-group m-auto col-5">
               <label for="email">Email:</label>
-              <input type="email" class="form-control" name="email"/>
+              <input type="email" class="form-control" value="{{old('email')}}" name="email"/>
               @if($errors->has('email'))
               <label class="text-danger">{{$errors->first('email')}}</label>
               @endif 
           </div>
           <div class="row form-group m-auto col-5">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" name="password"/>
+              <input type="password" class="form-control" value="{{old('password')}}" name="password"/>
               @if($errors->has('password'))
               <label class="text-danger">{{$errors->first('password')}}</label>
               @endif 
@@ -75,7 +75,7 @@
           <br>
           <div class="row form-group m-auto col-5">
             <label for="cpass">Confirm Password:</label>
-            <input type="password" class="form-control" name="cpass"/>
+            <input type="password" class="form-control" value="{{old('cpass')}}" name="cpass"/>
             @if($errors->has('cpass'))
             <label class="text-danger">{{$errors->first('cpass')}}</label>
             @endif 

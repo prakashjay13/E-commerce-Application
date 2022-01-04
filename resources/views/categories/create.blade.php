@@ -44,7 +44,7 @@
           @csrf
           <div class="row form-group m-auto col-5">  
               <label for="title">Title:</label>
-              <input type="text" class="form-control" name="title"/>
+              <input type="text" class="form-control" value="{{old('title')}}" name="title"/>
               @if($errors->has('title'))
               <label class="text-danger">{{$errors->first('title')}}</label>
               @endif 
@@ -52,7 +52,7 @@
 
           <div class="row form-group m-auto col-5">
               <label for="description">Description:</label>
-              <input type="textarea" class="form-control" name="description"/>
+              <input type="textarea" class="form-control" value="{{old('description')}}" name="description"/>
               @if($errors->has('description'))
               <label class="text-danger">{{$errors->first('description')}}</label>
               @endif 

@@ -45,7 +45,7 @@
           <h2 class="text-center text-primary">Banner management</h2>
          
           <div class="row form-group m-auto col-5">
-         Heading <input type="text" class="form-control" name="heading"/>
+         Heading <input type="text" class="form-control" value="{{old('heading')}}" name="heading"/>
          @if($errors->has('heading'))
          <label class="text text-danger">{{$errors->first('heading')}}</label>  
          @endif 
@@ -53,7 +53,7 @@
           
         </div>
         <div class="row form-group m-auto col-5">
-        Description <input type="text" class="form-control" name="description"/>
+        Description <input type="text" class="form-control" value="{{old('description')}}" name="description"/>
         @if($errors->has('description'))
          <label class="text text-danger">{{$errors->first('description')}}</label>  
          @endif 
