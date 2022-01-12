@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
 
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
+        $categories = Category::all();
 
-        return view ('categories.index',compact('categories'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -28,7 +29,7 @@ class CategoryController extends Controller
     {
         $data = Category::all();
 
-        return view('categories.create',compact('data'));
+        return view('categories.create', compact('data'));
     }
 
     /**
@@ -39,22 +40,22 @@ class CategoryController extends Controller
      */
     public function store(Request $req)
     {
-        $validate=$req->validate([
-            'title'=>'required',
-            'description'=>'required',
-            
-        ],[
-            'title.required'=>'This field is manadtory',
-            'description.required'=>'This field is manadtory',
-            
+        $validate = $req->validate([
+            'title' => 'required',
+            'description' => 'required',
+
+        ], [
+            'title.required' => 'This field is manadtory',
+            'description.required' => 'This field is manadtory',
+
         ]);
-        if($validate){
+        if ($validate) {
             Category::insert([
-                'title'=>$req->title,
-                'description'=>$req->description,
-                  
+                'title' => $req->title,
+                'description' => $req->description,
+
             ]);
-           
+
             return redirect('/categories');
         }
     }
@@ -79,8 +80,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        
-        return view('categories.edit', compact('category')); 
+
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -92,12 +93,12 @@ class CategoryController extends Controller
      */
     public function update(Request $req)
     {
-        Category::where('id',$req->id)->update([
-            'title'=>$req->title,
-            'description'=>$req->description,
-    
+        Category::where('id', $req->id)->update([
+            'title' => $req->title,
+            'description' => $req->description,
+
         ]);
-        return redirect('/categories')->with('msg', 'Category updated!'); 
+        return redirect('/categories')->with('msg', 'Category updated!');
     }
 
     /**

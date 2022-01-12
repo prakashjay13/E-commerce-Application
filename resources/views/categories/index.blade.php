@@ -4,7 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | DataTables</title>
+        <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
+        <title>Ecomm-App | Categories</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -61,10 +62,10 @@
                                         <thead>
                                             <tr>
                                             <tr>
-                                                <td>ID</td>
-                                                <td>Title</td>
-                                                <td>Description</td>
-                                                <td colspan=2>Actions</td>
+                                                <th>ID</th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th >Actions</th>
                                             </tr>
                                             </tr>
                                         </thead>
@@ -75,9 +76,8 @@
                                                 <td>{{$cat->title}} </td>
                                                 <td>{{$cat->description}}</td>
                                                 <td>
-                                                    <a href="{{ route('categories.edit', $cat->id)}}" class="btn btn-warning">Edit</a>
-                                                </td>
-                                                <td>
+                                                    <a href="{{ route('categories.edit', $cat->id)}}" class="btn btn-warning">Edit</a><br><br>
+                                                
                                                     <form action="{{ route('categories.destroy', $cat->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')

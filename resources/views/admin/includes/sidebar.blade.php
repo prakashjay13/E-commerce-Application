@@ -25,7 +25,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="/home" class=" nav-link ">
+                    <a href="/home" class="{{request()->is('home*') ? 'active' : ''}} nav-link ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -36,7 +36,7 @@
                 </li>
 
                 <li class="nav-item menu-open">
-                    <a href="/users" class=" nav-link ">
+                    <a href="/users" class="{{request()->is('users*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
                         <p>
                             User Management
@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item menu-open">
-                    <a href="/banners" class=" nav-link ">
+                    <a href="/banners" class="{{request()->is('banners*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-image" aria-hidden="true"></i>&nbsp;
                         <p>
                             Banner Management
@@ -58,7 +58,18 @@
                 </li>
 
                 <li class="nav-item menu-open">
-                    <a href="/categories" class=" nav-link ">
+                    <a href="/coupons" class="{{request()->is('coupons*') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          Coupons
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
+                    <a href="/categories" class="{{request()->is('categories*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;
                         <p>
                           Categories
@@ -69,10 +80,21 @@
                 </li>
 
                 <li class="nav-item menu-open">
-                    <a href="/products" class=" nav-link ">
+                    <a href="/products" class="{{request()->is('products*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;
                         <p>
                           Products
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
+                    <a href="/users/show" class="{{request()->is('users/show') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          Contact Us
                            
                         </p>
                     </a>

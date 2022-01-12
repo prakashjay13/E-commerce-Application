@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\product_attribute;
+use App\Models\product_category;
+use App\Models\product_image;
+
 
 class ProductController extends Controller
 {
@@ -15,21 +21,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        
-        return view('products.index', compact('products'));
-    }
-
-
-    /**
-     * For accessing the type of category
-     *
-     * @return void
-     */
-    public function type(){
-        $cat = Category::all();
-
-        return view('products.create',compact('cat'));
+        $data = Product::paginate(5);
+        return view("products.index", compact('data'));
     }
 
     /**
@@ -39,9 +32,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $cat = Category::all();
-
-        return view('products.create',compact('cat'));
+        $data = Category::all();
+        return view("products.create", compact('data'));
     }
 
     /**
@@ -50,43 +42,57 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $validate=$req->validate([
-            'name'=>'required',
-            'category'=>'required',
-            'price'=>'required',
-            'quantity'=>'required',
-        ],
-        [
-            'name.required'=>'This field is manadtory',
-            'category.required'=>'This field is manadatory',
-            'price.required'=>'This field is manadatory',
-            'quantity.required'=>'This field is manadatory'
-
-        ]);
-        if($validate){
-            $cat=Category::where('id',$req->category)->first();
-            Product::insert([
-                'name'=>$req->name,
-                'type'=>$cat->title,
-                'category_id'=>$req->category,
-                'price'=>$req->price,
-                'quantity'=>$req->quantity,
+        try {
+            $validateProduct = $request->validate([
+                'name'        => 'required',
+                'description' => 'required',
+                'quantity'    => 'required|numeric',
+                'price'       => 'required|numeric',
             ]);
-            return redirect('/products')->with('msg', 'Product added!');
-        }
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+            if ($validateProduct) {
+                $name         = $request->name;
+                $description  = $request->description;
+                $quantity     = $request->quantity;
+                $price        = $request->price;
+                $productInsertId        = DB::table('products')->insertGetId([
+
+                    'name'       => $name,
+                    'description' => $description,
+                    'quantity'    => $quantity,
+                    'price'       => $price,
+                ]);
+                if ($productInsertId) {
+                    $productAttributeId  = product_attribute::insertGetId([
+                        'name'       => $name,
+                        'price'      => $price,
+                        'quantity'   => $quantity,
+                        'product_id' => $productInsertId
+                    ]);
+                    if ($productAttributeId && $request->hasFile('image')) {
+                        $images = $request->file('image');
+                        foreach ($images as $i) {
+                            $name = rand() . $i->getClientOriginalName();
+                            if ($i->move(public_path('storage/'), $name)) {
+                                product_image::insert([
+                                    'image'      => $name,
+                                    'product_id' => $productInsertId,
+                                ]);
+                            }
+                        }
+                    }
+                }
+                DB::table('product_categories')->insert([
+                    'category_id' => $request->category,
+                    'product_id'  => $productInsertId,
+                ]);
+                return redirect('/products')->with('msg', 'Successfully inserted data');
+            }
+        } catch (Exception $e) {
+            return back()->with('msg', 'All Fields are required.');
+        }
     }
 
     /**
@@ -97,10 +103,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $cat = Category::all();
-        $product = Product::findOrFail($id);
-        
-        return view('products.edit', compact('product','cat')); 
+        $data = Product::all()->where('id', $id)->first();
+        $product_image = product_image::all()->where('product_id', $id);
+        $category = Category::all();
+        return view('products.edit', compact('data', 'category', 'product_image'));
     }
 
     /**
@@ -110,36 +116,47 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req)
+    public function update(Request $request, $id)
     {
-        $cat=Category::where('id',$req->category)->first();
-        $validate=$req->validate([
-            'name'=>'required',
-            'category'=>'required',
-            'price'=>'required',
-            'quantity'=>'required',
-        ],
-        [
-            'name.required'=>'This field is manadtory',
-            'category.required'=>'This field is manadatory',
-            'price.required'=>'This field is manadatory',
-            'quantity.required'=>'This field is manadatory'
-
-        ]);
-        if($validate){
-            Product::where('id',$req->uid)->update([
-                'name'=>$req->name,
-                'type'=>$cat->title,
-                'category_id'=>$req->category,
-                'price'=>$req->price,
-                'quantity'=>$req->quantity,
+        try {
+            $data = Product::where('id', $request->uid)->update([
+                'name'         => $request->name,
+                'description'  => $request->description,
+                'quantity'     => $request->quantity,
+                'price'        => $request->price,
             ]);
-            return redirect('/products')->with('msg', 'Product updated!');
+            if ($data) {
+                product_attribute::where('product_id', $request->uid)->update([
+                    'name'       => $request->name,
+                    'price'      => $request->price,
+                    'quantity'   => $request->quantity,
+                ]);
+                product_category::where('product_id', $request->uid)->update([
+                    'category_id' => $request->category,
+                ]);
+                if ($request->hasFile('image')) {
+                    $deleteImage = product_image::where('product_id', $request->uid)->get();
+                    foreach ($deleteImage as $i) {
+                        unlink("storage/" . $i->image);
+                    }
+                    product_image::where('product_id', $request->uid)->delete();
+                    $images = $request->file('image');
+                    foreach ($images as $i) {
+                        $name = rand() . $i->getClientOriginalName();
+                        $i->move(public_path('storage/'), $name);
+                        product_image::insert([
+                            'image'      => $name,
+                            'product_id' => $request->uid,
+                        ]);
+                    }
+                }
+            }
+            return redirect('/products')->with('msg', 'successfully updated data');
+        } catch (Exception $e) {
+            return back()->with('msg', 'All fields are required.');
         }
-        
-
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -149,8 +166,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        $data = Product::findOrFail($id);
+        $data->delete();
 
         return redirect('/products')->with('msg', 'Product deleted!');
     }

@@ -4,7 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | DataTables</title>
+        <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
+        <title>Ecomm-App | Users</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -42,15 +43,17 @@
     @endif
       <form method="post" action="{{ route('users.store') }}">
           @csrf
-          <div class="row form-group m-auto col-5">  
+          <div class="form-row">
+            <div class="form-group col-md-6">  
               <label for="firstname">First Name:</label>
               <input type="text" class="form-control" value="{{old('firstname')}}" name="firstname"/>
               @if($errors->has('firstname'))
               <label class="text-danger">{{$errors->first('firstname')}}</label>
               @endif 
+            
           </div>
 
-          <div class="row form-group m-auto col-5">
+          <div class="form-group col-md-6">
               <label for="lastname">Last Name:</label>
               <input type="text" class="form-control" value="{{old('lastname')}}" name="lastname"/>
               @if($errors->has('lastname'))
@@ -58,59 +61,70 @@
               @endif 
           </div>
 
-          <div class="row form-group m-auto col-5">
+          <div class="form-group col-md-10">
               <label for="email">Email:</label>
               <input type="email" class="form-control" value="{{old('email')}}" name="email"/>
               @if($errors->has('email'))
               <label class="text-danger">{{$errors->first('email')}}</label>
               @endif 
           </div>
-          <div class="row form-group m-auto col-5">
+
+          <div class="form-group col-md-10">
+            <label for="status">Role: </label>
+              
+        <select name="role" class="custom-select my-1 mr-sm-2" >
+            
+        <option>Roles Type</option>
+        @foreach($data as $a)
+         
+        <option value="{{$a['role_name']}}" {{ old('role') == $a['role_name'] ? 'selected': "" }}>{{$a['role_name']}}</option>   
+     @endforeach
+     @if($errors->has('role'))
+            <label class="text-danger">{{$errors->first('role')}}</label>
+            @endif 
+        </select>
+        </div> 
+
+          <div class="form-group col-md-6">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" value="{{old('password')}}" name="password"/>
+              <input type="password" class="form-control" value="" name="password"/>
               @if($errors->has('password'))
               <label class="text-danger">{{$errors->first('password')}}</label>
               @endif 
           </div>
-          <br>
-          <div class="row form-group m-auto col-5">
+          
+          
+          <div class="form-group col-md-6">
             <label for="cpass">Confirm Password:</label>
-            <input type="password" class="form-control" value="{{old('cpass')}}" name="cpass"/>
+            <input type="password" class="form-control" value="" name="cpass"/>
             @if($errors->has('cpass'))
             <label class="text-danger">{{$errors->first('cpass')}}</label>
             @endif 
         </div>
-        <br>
-          <div class="row form-group m-auto col-5">
-            <label for="status">Status: <br>
-          <input type="radio" class="form-check-input" name="status" value="1">Active <br>
-          <input type="radio" class="form-check-input" name="status" value="0">Inactive <br>
+        
+
+        <fieldset class="form-group">
+          <div class="row">
+            <label class="col-form-label col-sm-2 pt-0">Status:</label><br>
+            <div class="col-sm-10">
+              <div class="form-check"><br>
+          <input type="radio" class="form-check-input" {{old('status') == 1 ? 'checked': ""}} name="status" value="1">Active 
+              </div>
+          <div class="form-check">
+          <input type="radio" class="form-check-input" {{old('status') == 0 ? 'checked': ""}} name="status" value="0">Inactive <br>
+          </div>
           @if($errors->has('status'))
              <label class="text text-danger">{{$errors->first('status')}}</label>  
              @endif   
-        </label>
-       
-        
             </div>
-
-          <div class="row form-group m-auto col-5">
-            <label for="status">Role: </label>
-              
-        <select name="role" class="form-control">
-            @if($errors->has('role'))
-            <label class="text-danger">{{$errors->first('role')}}</label>
-            @endif 
-        <option>Roles Type</option>
-        @foreach($data as $a)
-         
-        <option value="{{$a['role_name']}}">{{$a['role_name']}}</option>   
-     @endforeach
-        </select>
-        </div> 
-          <br>
-          <div class="row form-group m-auto col-5">                       
-          <button type="submit" class="btn btn-success">Add user</button>
           </div>
+          </div>
+        </fieldset>
+
+          </div>
+                               
+          <button type="submit" class="btn btn-success">Add user</button>
+         
       </form>
   </div>
 </div>

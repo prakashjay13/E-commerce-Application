@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+    <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
 @include('admin.includes.head')
 <body>
     @include('admin.includes.nav')

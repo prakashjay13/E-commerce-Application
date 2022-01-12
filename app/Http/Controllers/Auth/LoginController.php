@@ -29,17 +29,16 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
-    protected function redirectTo(){
-        if(Auth::user()->role == 'admin')
-        {
+    protected function redirectTo()
+    {
+        if (Auth::user()->role == 'admin') {
+
             return 'home';
-        }
-       else{
-        
-        Auth::logout();
-          
+        } else {
+            Auth::logout();
+
             redirect(\Request::url('/checking'));
-       }
+        }
     }
 
     /**

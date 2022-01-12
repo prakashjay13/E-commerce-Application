@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Categories</title>
+        <title>Ecomm-App | Coupons</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,33 +36,46 @@
     <div class="alert alert-danger">{{Session::get('msg')}}</div>
     @endif
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-3">Update category</h1>
+        <h1 class="display-3">Update coupon</h1>
         
-        <form method="post" action="{{ route('categories.update', $category->id) }}">
+        <form method="post" action="{{ route('coupons.update', $coupons->id) }}">
             @method('PATCH') 
             @csrf
-            <div class="row form-group m-auto col-5">
-                <label class="form-check-label">Title:</label>
-                <input type="text" class="form-control" name="title" value={{ $category->title }} />
-                @if($errors->has('title'))
-                <label class="text text-danger">{{$errors->first('title')}}</label>  
+            <div class="form-row">
+                <div class="form-group col-md-12"> 
+                <label class="form-check-label">Code:</label>
+                <input type="text" class="form-control" name="code" value={{ $coupons->code }} />
+                @if($errors->has('code'))
+                <label class="text text-danger">{{$errors->first('code')}}</label>  
                 @endif 
             </div>
-            <br>
-
-            <div class="row form-group m-auto col-5">
-                <label class="form-check-label">Description:</label>
-                <input type="textarea" class="form-control" name="description" value={{ $category->description }} />
-                @if($errors->has('description'))
-                <label class="text text-danger">{{$errors->first('description')}}</label>  
-                @endif 
-            </div>
-             <br>
             
-                <input type="hidden" name="id" value="{{$category->id}}">
+            <div class="form-group col-md-12">
+                <label for="type">Coupon Type:</label>
+                <select name="type" class="custom-select my-1 mr-sm-2" >
+                    <option value="">Select a coupon type</option>
+                <option value="fixed">Fixed</option>
+                <option value="percent">Percent</option>
+                @if($errors->has('type'))
+                <label class="text-danger">{{$errors->first('type')}}</label>
+                @endif 
+            </select>
+            </div>
+
+            <div class="form-group col-md-12">  
+                <label for="value">Coupon Value:</label>
+                <input type="text" class="form-control" value={{ $coupons->value }} name="value"/>
+                @if($errors->has('value'))
+                <label class="text-danger">{{$errors->first('value')}}</label>
+                @endif 
+            </div>
+             
+            
+                <input type="hidden" name="id" value="{{$coupons->id}}">
                 <div class="text-center mt-2">
               <input type="submit" class="btn btn-success" value="Update"/>
                 </div>
+            </div>
         </form>
     </div>
 </div>

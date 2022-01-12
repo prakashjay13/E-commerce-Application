@@ -4,7 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | DataTables</title>
+        <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
+        <title>Ecomm-App | Products</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -61,39 +62,49 @@
                                         <thead>
                                             <tr>
                                             <tr>
-                                                <td>ID</td>
-                                                <td>Name</td>
-                                                <td>Type</td>
-                                                <td>Category_id</td>
-                                                <td>Price</td>
-                                                <td>Quantity</td>
-                                                <td colspan=2>Actions</td>
+                                                <th>Sr.no</th>
+                                                <th>Name</td>
+                                                <th>Description</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Actions</th>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($products as $product)
+                                            @if(count($data)>0) 
+                                            @endif
+                                            @php
+                                             $sn=1;
+                                            @endphp
+                                            @foreach($data as $d)
                                             <tr>
-                                                <td>{{$product->id}}</td>
-                                                <td>{{$product->name}} </td>
-                                                <td>{{$product->type}}</td>
-                                                <td>{{$product->category_id}}</td>
-                                                <td>{{$product->price}}</td>
-                                                <td>{{$product->quantity}}</td>
+                                                <td>{{$sn}}</td>
+                                                <td>{{$d->name}} </td>
+                                                <td>{{$d->description}}</td> 
+                                                <td>{{$d->price}}</td>
+                                                <td>{{$d->quantity}}</td>
                                                 <td>
-                                                    <a href="{{ route('products.edit', $product->id)}}" class="btn btn-warning">Edit</a>
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('products.destroy', $product->id)}}" method="post">
+                                                   
+                                                    <a href="{{ route('products.edit', $d->id)}}" class="btn btn-warning">Edit</a><br><br>
+                                               
+                                                    <form action="{{ route('products.destroy', $d->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                                                     </form>
                                                 </td>
+                                                @php
+                                                $sn++;
+                                               @endphp 
+                                                @endforeach
                                             </tr>
-                                            @endforeach
+                                           
                                         </tbody>
+                                               
                                     </table>
+
+                                    {{$data->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>
@@ -122,4 +133,5 @@
         
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
  </body>
-   </html>    
+   </html>
+       

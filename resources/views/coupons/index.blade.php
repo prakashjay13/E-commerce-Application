@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Users</title>
+        <title>Ecomm-App | Coupons</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -53,8 +53,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Users</h3>
-                                    <a style="margin: 19px;" href="{{ route('users.create')}}" class="btn btn-warning">New user</a>
+                                    <h3 class="card-title">Coupons</h3>
+                                    <a style="margin: 19px;" href="{{ route('coupons.create')}}" class="btn btn-warning">New coupon</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -62,34 +62,31 @@
                                         <thead>
                                             <tr>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Status</th>
-                                                <th>Role</th>
-                                                <th>Actions</th>
+                                                <th>Sr.no</th>
+                                                <th>Coupon Code</th>
+                                                <th>Coupon Type</th>
+                                                <th>Coupon Value</th>
+                                                <th >Actions</th>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($users as $user)
+                                            @php
+                                             $sn=1;
+                                            @endphp
+                                            @foreach($coupons as $c)
                                             <tr>
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->full_name}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->status}}</td>
-                                                <td>{{$user->role}}</td>
+                                                <td>{{$sn}}</td>
+                                                <td>{{$c->code}} </td>
+                                                <td>{{$c->type}}</td>
+                                                <td>{{$c->value}}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning">Edit</a><br><br>
-                                       
-                                
-                                                    <form action="{{ route('users.destroy', $user->id)}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>
-                                                    </form>
+                                                    <a href="{{ route('coupons.edit', $c->id)}}" class="btn btn-warning">Edit</a>
                                                 </td>
                                             </tr>
+                                            @php
+                                            $sn++;
+                                           @endphp
                                             @endforeach
                                         </tbody>
                                     </table>

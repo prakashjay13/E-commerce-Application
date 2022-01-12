@@ -15,9 +15,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $data=Banner::all();
+        $data = Banner::all();
 
-        return view ('banners.index',compact('data'));
+        return view('banners.index', compact('data'));
     }
 
     /**
@@ -27,7 +27,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view ('banners.create');
+        return view('banners.create');
     }
 
     /**
@@ -38,33 +38,30 @@ class BannerController extends Controller
      */
     public function store(Request $req)
     {
-        $validate=$req->validate([
-            'heading'=>'required',
-            'description'=>'required',
-            'image'=>'required',
-        ],[
-            'heading.required'=>'This field is mandatory',
-            'description.required'=>'This field is mandatory',
-            'image.required'=>'This field is mandatory',
+        $validate = $req->validate([
+            'heading' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ], [
+            'heading.required' => 'This field is mandatory',
+            'description.required' => 'This field is mandatory',
+            'image.required' => 'This field is mandatory',
         ]);
-        if($validate){
-          $banner=new Banner();
-          $banner->heading=$req->input('heading');
-          $banner->description=$req->input('description');
-          if($req->hasFile('image')){
-              $file=$req->file('image');
-              $extension=$file->getClientOriginalExtension();
-              $filename=time()."-".$extension;
-              $file->move("storage/",$filename);
-              $banner->image=$filename;
-
-          }
-          $banner->status=$req->input('status') ==true ? '1':'0';
-          $banner->save();
-
+        if ($validate) {
+            $banner = new Banner();
+            $banner->heading = $req->input('heading');
+            $banner->description = $req->input('description');
+            if ($req->hasFile('image')) {
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . "-" . $extension;
+                $file->move("storage/", $filename);
+                $banner->image = $filename;
+            }
+            $banner->status = $req->input('status') == true ? '1' : '0';
+            $banner->save();
         }
         return redirect('/banners')->with('msg', 'Banner added!');
-        
     }
 
     /**
@@ -86,9 +83,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $data=Banner::findOrFail($id);
+        $data = Banner::findOrFail($id);
 
-        return view('banners.edit',compact('data'));
+        return view('banners.edit', compact('data'));
     }
 
     /**
@@ -100,41 +97,38 @@ class BannerController extends Controller
      */
     public function update(Request $req)
     {
-        $validate=$req->validate([
-            'heading'=>'required',
-            'description'=>'required',
-            'image'=>'required',
-        ],[
-            'heading.required'=>'This field is mandatory',
-            'description.required'=>'This field is mandatory',
-            'image.required'=>'This field is mandatory',
+        $validate = $req->validate([
+            'heading' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ], [
+            'heading.required' => 'This field is mandatory',
+            'description.required' => 'This field is mandatory',
+            'image.required' => 'This field is mandatory',
         ]);
-        if($validate){
-      
-            $banner=Banner::findOrFail($req->id);
-           
-            $banner->heading=$req->input('heading');
-            $banner->description=$req->input('description');
-            if($req->hasFile('image')){
-                $destination='storage/'.$banner->image;
-                if(File::exists($destination)){
-                    File::delete($destination);
+        if ($validate) {
 
+            $banner = Banner::findOrFail($req->id);
+
+            $banner->heading = $req->input('heading');
+            $banner->description = $req->input('description');
+            if ($req->hasFile('image')) {
+                $destination = 'storage/' . $banner->image;
+                if (File::exists($destination)) {
+                    File::delete($destination);
                 }
-                $file=$req->file('image');
-                $extension=$file->getClientOriginalExtension();
-                $filename=time()."-".$extension;
-                $file->move('storage',$filename);
-                $banner->image=$filename;
-  
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . "-" . $extension;
+                $file->move('storage', $filename);
+                $banner->image = $filename;
             }
-            $banner->status=$req->input('status') ==true ? '1':'0';
+            $banner->status = $req->input('status') == true ? '1' : '0';
             $banner->save();
-  
-          }
-          return redirect('/banners')->with('msg', 'Banner updated!');
+        }
+        return redirect('/banners')->with('msg', 'Banner updated!');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

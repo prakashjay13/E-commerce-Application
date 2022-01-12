@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Banner</title>
+        <title>Ecomm-App | Coupons</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,51 +36,46 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="container">
  <div class="col-sm-8 offset-sm-2">
-    <h1 >Add a banner</h1>
+    <h1 >Add a coupon</h1>
   <div>
     @if(Session::has('msg'))
     <div class="alert alert-danger">{{Session::get('msg')}}</div>
     @endif
-      <form method="post" action="{{ route('banners.store') }}" enctype="multipart/form-data">
+      <form method="post" action="{{ route('coupons.store') }}">
           @csrf
-          <h2 class="text-center text-dark">Banner management</h2>
-         
-          <div class="form-group">
-            <label for="heading">Heading:</label>
-          <input type="text" class="form-control" value="{{old('heading')}}" name="heading"/>
-         @if($errors->has('heading'))
-         <label class="text text-danger">{{$errors->first('heading')}}</label>  
-         @endif 
-          
-        </div>
+          <div class="form-row">
+          <div class="form-group col-md-12">  
+              <label for="code">Code:</label>
+              <input type="text" class="form-control" value="{{old('code')}}" name="code"/>
+              @if($errors->has('code'))
+              <label class="text-danger">{{$errors->first('code')}}</label>
+              @endif 
+          </div>
 
-         <div class="form-group">
-            <label for="description">Description:</label> 
-            <input type="text" class="form-control" value="{{old('description')}}" name="description"/>
-        @if($errors->has('description'))
-         <label class="text text-danger">{{$errors->first('description')}}</label>  
-         @endif 
-         
-        </div>
-
-        <div class="form-group">
-          <label for="image">Image:</label>
-        <input type="File" class="form-control" name="image"/>
-        @if($errors->has('image'))
-         <label class="text text-danger">{{$errors->first('image')}}</label>  
-         @endif 
-           
-        </div>
-
-        <div class="form-group">
-          <label for="status">Status:</label>
-        <input type="checkbox"   name="status"/>  0=visible , 1=hidden
-           
-        </div>
-         
-       
-      <input type="submit" class="btn btn-success" value="Submit"/>
+          <div class="form-group col-md-12">
+              <label for="type">Coupon Type:</label>
+              <select name="type" class="custom-select my-1 mr-sm-2" >
+              <option value="">Select a coupon type</option>
+              <option value="fixed">Fixed</option>
+              <option value="percent">Percent</option>
+              @if($errors->has('type'))
+              <label class="text-danger">{{$errors->first('type')}}</label>
+              @endif 
+            </select>
+          </div>
         
+          <div class="form-group col-md-12">  
+            <label for="value">Coupon Value:</label>
+            <input type="text" class="form-control" value="{{old('value')}}" name="value"/>
+            @if($errors->has('value'))
+            <label class="text-danger">{{$errors->first('value')}}</label>
+            @endif 
+        </div>
+
+                                
+          <button type="submit" class="btn btn-success">Add coupon</button>
+         
+          </div>
       </form>
   </div>
 </div>

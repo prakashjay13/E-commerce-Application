@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\product_category;
-
+use App\Models\Product;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class product_image extends Model
 {
     use HasFactory;
 
-    public function product_category()
+    public function product_image()
     {
-        return $this->hasMany(product_category::class);
+        return $this->belongsTo(Product::class);
     }
 }

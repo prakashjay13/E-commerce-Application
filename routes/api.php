@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ProductApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['middleware' => 'api'], function ($router) {
+
+    Route::post('/register', [ApiController::class, 'register']);
+
+    Route::post('/login', [ApiController::class, 'login']);
+
+    Route::post('/contact', [ApiController::class, 'contact']);
+
+    Route::post('/logout', [ApiController::class, 'logout']);
+
+    Route::get('/product', [ProductApiController::class, 'product']);
+
+    Route::get('/catpro/{id}', [ProductApiController::class, 'catpro']);
+
+    Route::get('/banner', [ProductApiController::class, 'banner']);
+
+    Route::get('/category', [ProductApiController::class, 'category']);
+
+    Route::get('/profile', [ApiController::class, 'profile']);
 });

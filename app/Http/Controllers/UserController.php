@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Contact;
 use App\Models\Role;
 
 class UserController extends Controller
@@ -18,20 +20,33 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        
+
         return view('users.index', compact('users'));
     }
 
+    /**
+     * for displaying the contact us messages
+     *
+     * @return void
+     */
+    public function contact()
+    {
+        $contacts = Contact::all();
 
-/**
- * To fetch roles in user table
- *
- * @return void
- */
-    public function roles(){
+        return view('users.contact', compact('contacts'));
+    }
+
+
+    /**
+     * To fetch roles in user table
+     *
+     * @return void
+     */
+    public function roles()
+    {
         $data = Role::all();
 
-        return view('users.create',compact('data'));
+        return view('users.create', compact('data'));
     }
 
     /**
@@ -44,7 +59,7 @@ class UserController extends Controller
         //
         $data = Role::all();
 
-        return view('users.create',compact('data'));
+        return view('users.create', compact('data'));
     }
 
     /**
@@ -60,7 +75,7 @@ class UserController extends Controller
             'lastname' => 'required|regex:/^[a-zA-Z ]{2,100}$/',
             'email' => 'required|regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
             'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',
-            'cpass'=> 'required_with:password|same:password',
+            'cpass' => 'required_with:password|same:password',
             'status' => 'required',
             'role' => 'required'
         ], [
@@ -97,8 +112,7 @@ class UserController extends Controller
             if ($user->save()) {
 
                 return redirect('/users')->with('msg', 'User added!');
-            } 
-            else {
+            } else {
 
                 return back()->with('msg', 'Error registering user');
             }
@@ -113,7 +127,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $contacts = Contact::all();
+
+        return view('users.show', compact('contacts'));
     }
 
     /**
@@ -127,9 +143,8 @@ class UserController extends Controller
         //
         $data = Role::all();
         $user = User::findOrFail($id);
-        
-        return view('users.edit', compact('user','data')); 
-        
+
+        return view('users.edit', compact('user', 'data'));
     }
 
     /**
@@ -141,16 +156,15 @@ class UserController extends Controller
      */
     public function update(Request $req)
     {
-        User::where('id',$req->id)->update([
-            'firstname'=>$req->firstname,
-            'lastname'=>$req->lastname,
-            'email'=>$req->email,
-            'status'=>$req->status,
-            'role'=>$req->role,
-    
+        User::where('id', $req->id)->update([
+            'firstname' => $req->firstname,
+            'lastname' => $req->lastname,
+            'email' => $req->email,
+            'status' => $req->status,
+            'role' => $req->role,
+
         ]);
-        return redirect('/users'); 
-       
+        return redirect('/users')->with('msg', 'User updated!');
     }
 
     /**

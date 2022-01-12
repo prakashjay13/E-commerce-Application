@@ -4,7 +4,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | DataTables</title>
+        <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
+        <title>Ecomm-App | Products</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -40,52 +41,65 @@
     @if(Session::has('msg'))
     <div class="alert alert-danger">{{Session::get('msg')}}</div>
     @endif
-      <form method="post" action="{{ route('products.store') }}">
+      <form method="post" enctype="multipart/form-data" action="{{ route('products.store') }}">
           @csrf
-          <div class="row form-group m-auto col-5">  
+          <div class="form-group">
               <label for="name">Name:</label>
-              <input type="text" class="form-control" value="{{old('name')}}" name="name"/>
+              <input type="text" class="form-control" value="{{old('name')}}" required name="name"/>
               @if($errors->has('name'))
               <label class="text-danger">{{$errors->first('name')}}</label>
               @endif 
           </div>
 
-
-          <div class="row form-group m-auto col-5">
+          <div class="form-group">
+            <label for="description">Description:</label>
+          <input type="text" class="form-control" value="{{old('description')}}" required name="description"/>
+          @if($errors->has('description'))
+           <label class="text text-danger">{{$errors->first('description')}}</label>  
+           @endif 
+             
+          </div>
+          <div class="form-group">
               <label for="price">Price:</label>
               <input type="text" class="form-control" value="{{old('price')}}" name="price"/>
               @if($errors->has('price'))
               <label class="text-danger">{{$errors->first('price')}}</label>
               @endif 
           </div>
-          <div class="row form-group m-auto col-5">
+          <div class="form-group">
               <label for="quantity">Quantity:</label>
-              <input type="number" class="form-control" value="{{old('quantity')}}" min="1" max="20" name="quantity"/>
+              <input type="text" class="form-control" value="{{old('quantity')}}"  name="quantity"/>
               @if($errors->has('quantity'))
               <label class="text-danger">{{$errors->first('quantity')}}</label>
               @endif 
           </div>
-          <br>
          
-          
+         
+          <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" name="image[]"multiple>
+          @if($errors->has('image'))
+           <label class="text text-danger">{{$errors->first('image')}}</label>  
+           @endif 
+             
+          </div>
 
-          <div class="row form-group m-auto col-5">
-            <label for="title">Title: </label>
-              
-        <select name="category" class="form-control">
-           
-        <option>Category Type</option>
-        @foreach($cat as $c)
+          <div class="form-group">
+            <label for="category">Category:</label>
+            <select name="category" class="form-control">
+            <option>Category Type</option>
+        @foreach($data as $d)
          
-        <option value="{{$c['id']}}">{{$c['title']}}</option>   
+        <option value="{{$d['id']}}">{{$d['title']}}</option>   
      @endforeach
         </select>
         @if($errors->has('category'))
         <label class="text-danger">{{$errors->first('category')}}</label>
-        @endif 
-        </div> 
+        @endif  
+        </div>
+
           <br>
-          <div class="row form-group m-auto col-5">                       
+          <div class="form-group m-auto col-5">                       
           <button type="submit" class="btn btn-success">Add product</button>
           </div>
       </form>
