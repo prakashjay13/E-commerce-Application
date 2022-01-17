@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checkout;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Contact;
 use App\Models\Role;
+use App\Models\Order;
 
 class UserController extends Controller
 {
@@ -125,12 +127,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::paginate(4);
 
         return view('users.show', compact('contacts'));
     }
+
+    /**
+     * For showing checkout data
+     *
+     * @return void
+     */
+    public function checkout()
+    {
+        $checkout = Checkout::all();
+
+        return view('orders.address', compact('checkout'));
+    }
+
+
+    /**
+     * For showing order data
+     *
+     * @return void
+     */
+    public function order()
+    {
+        $order = Order::all();
+
+        return view('orders.order', compact('order'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.

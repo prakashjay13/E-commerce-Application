@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductApiController;
 
 /*
@@ -35,5 +36,15 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/category', [ProductApiController::class, 'category']);
 
+    Route::get('/coupon', [CouponController::class, 'coupon']);
+
     Route::get('/profile', [ApiController::class, 'profile']);
+
+    Route::get('/cms', [ApiController::class, 'cms']);
+
+    Route::post('/changepassword', [ApiController::class, 'changepassword']);
+
+    Route::post('/checkout', [ApiController::class, 'checkout']);
+
+    Route::get('/order/{id}', [ProductApiController::class, 'order']);
 });

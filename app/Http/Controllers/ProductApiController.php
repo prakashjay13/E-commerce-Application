@@ -9,13 +9,15 @@ use App\Http\Resources\EcommResource;
 use App\Models\product_attribute;
 use App\Models\product_category;
 use App\Models\product_image;
+use App\Models\Order;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class ProductApiController extends Controller
 {
     public function product()
     {
-        $product = Product::all();
+        $product = Product::with(['ProductImage', 'ProductCategory'])->get();
         $product_image = product_image::all();
         $product_cat = product_category::all();
         $product_attr = product_attribute::all();
@@ -40,6 +42,15 @@ class ProductApiController extends Controller
     public function catpro($id)
     {
         $product = product_category::where('category_id', $id)->get();
+
         return response(['product' => EcommResource::collection($product), 'err' => 0]);
+    }
+
+
+    public function order($id)
+    {
+        $order = Order::where('user_id', $id)->get();
+
+        return response(['order' => EcommResource::collection($order), 'err' => 0]);
     }
 }

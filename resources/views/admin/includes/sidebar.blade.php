@@ -69,6 +69,17 @@
                 </li>
 
                 <li class="nav-item menu-open">
+                    <a href="/cms" class="{{request()->is('cms*') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-file" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          CMS
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
                     <a href="/categories" class="{{request()->is('categories*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;
                         <p>
@@ -95,6 +106,28 @@
                         <i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;
                         <p>
                           Contact Us
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
+                    <a href="/checkout" class="{{request()->is('checkout') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          Customer Address
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
+                    <a href="/order" class="{{request()->is('order') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          Customer Orders
                            
                         </p>
                     </a>

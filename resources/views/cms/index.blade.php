@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Categories</title>
+        <title>Ecomm-App | Cms</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -53,8 +53,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Categories</h3>
-                                    <a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-warning">New category</a>
+                                    <h3 class="card-title">Cms</h3>
+                                    <a style="margin: 19px;" href="{{ route('cms.create')}}" class="btn btn-warning">New cms</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -64,34 +64,36 @@
                                             <tr>
                                                 <th>Sr.no</th>
                                                 <th>Title</th>
-                                                <th>Description</th>
+                                                <th>Body </th>
                                                 <th >Actions</th>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $count = 1; ?> 
-                                            @foreach($categories as $cat)
+                                            @php
+                                             $sn=1;
+                                            @endphp
+                                            @foreach($data as $d)
                                             <tr>
-                                                <td>{{$categories ->perPage()*($categories->currentPage()-1)+$count}}</td>
-                                                <td>{{$cat->title}} </td>
-                                                <td>{{$cat->description}}</td>
+                                                <td>{{$sn}}</td>
+                                                <td>{{$d->title}} </td>
+                                                <td>{{$d->body}}</td>
                                                 <td>
-                                                    <a href="{{ route('categories.edit', $cat->id)}}" class="btn btn-warning">Edit</a><br><br>
+                                                    <a href="{{ route('cms.edit', $d->id)}}" class="btn btn-warning">Edit</a><br><br>
                                                 
-                                                    <form action="{{ route('categories.destroy', $cat->id)}}" method="post">
+                                                    <form action="{{ route('cms.destroy', $d->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>
-                                            <?php $count++; ?>
+                                            @php
+                                            $sn++;
+                                           @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    {{$categories->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

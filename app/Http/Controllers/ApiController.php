@@ -6,15 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Resources\EcommResource;
 use App\Models\User;
 use App\Models\Contact;
+use App\Models\Coupon;
+use App\Models\Cms;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Checkout;
+use App\Models\Order;
 
 class ApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkout', 'cms']]);
     }
     public function register(Request $req)
     {
@@ -72,8 +76,11 @@ class ApiController extends Controller
 
     public function profile()
     {
-        return auth()->user();
+        $profile = auth('api')->user();
+        return response()->json(['profile' => $profile]);
     }
+
+
 
 
     public function contact(Request $req)
@@ -99,6 +106,87 @@ class ApiController extends Controller
             } else {
                 return response()->json(['msg' => 'Message sending Failed']);
             }
+        }
+    }
+
+    public function coupon()
+    {
+        $coupon = Coupon::all();
+
+        return response()->json(['coupon' => $coupon]);
+    }
+
+    public function cms()
+    {
+        $cms = Cms::all();
+
+        return response(['cms' => EcommResource::collection($cms), 'err' => 0]);
+    }
+
+    public function changepassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|min:6|max:12',
+            'new_password' => 'required|min:6|max:12',
+            'confirm_password' => 'required|min:6|max:12|same:new_password',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        } else {
+            $user = $request->user();
+            if (Hash::check($request->old_password, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($request->new_password)
+                ]);
+                return response()->json([
+                    'message' => "password successfully updated",
+                    'status' => 1
+                ], 200);
+            } else {
+
+                return response()->json([
+                    'message' => "old password does not match",
+                ], 400);
+            }
+        }
+        return response()->json([
+            'message' => "password successfully updated",
+            'status' => 1
+        ]);
+    }
+
+
+    public function checkout(Request $req)
+    {
+
+        $users = User::where('email', $req->id)->first();
+        $checkout = new Checkout();
+        $checkout->name = $req->name;
+        $checkout->email = $req->email;
+        $checkout->address = $req->address;
+        $checkout->mobile = $req->mobile;
+        $checkout->bname = $req->bname;
+        $checkout->bemail = $req->bemail;
+        $checkout->baddress = $req->baddress;
+        $checkout->bmobile = $req->bmobile;
+        $checkout->user_id = $users->id;
+        $u = $req->cart;
+        foreach ($u as $c) {
+            $order = new Order();
+            $order->name = $c['name'];
+            $order->price = $c['price'];
+            $order->quantity = $c['quantity'];
+            $order->user_id = $users->id;
+            $order->save();
+        }
+
+        if ($checkout->save()) {
+
+            return response(['checkout' => new EcommResource($checkout), 'msg' => 'SUBMITTED SUCESSFULLY', 'err' => 0]);
+        } else {
+
+            return response()->json(['msg' => 'failed regsitertaion']);
         }
     }
 }

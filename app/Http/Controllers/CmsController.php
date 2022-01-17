@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Cms;
 
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CmsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(3);
+        $data = Cms::all();
 
-        return view('categories.index', compact('categories'));
+        return view('cms.index', compact('data'));
     }
 
     /**
@@ -27,9 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data = Category::all();
-
-        return view('categories.create', compact('data'));
+        return view('cms.create');
     }
 
     /**
@@ -42,21 +40,21 @@ class CategoryController extends Controller
     {
         $validate = $req->validate([
             'title' => 'required',
-            'description' => 'required',
+            'body' => 'required',
 
         ], [
             'title.required' => 'This field is manadtory',
-            'description.required' => 'This field is manadtory',
+            'body.required' => 'This field is manadtory',
 
         ]);
         if ($validate) {
-            Category::insert([
+            Cms::insert([
                 'title' => $req->title,
-                'description' => $req->description,
+                'body' => $req->body,
 
             ]);
 
-            return redirect('/categories');
+            return redirect('/cms');
         }
     }
 
@@ -79,9 +77,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        $cms = Cms::findOrFail($id);
 
-        return view('categories.edit', compact('category'));
+        return view('cms.edit', compact('cms'));
     }
 
     /**
@@ -93,12 +91,12 @@ class CategoryController extends Controller
      */
     public function update(Request $req)
     {
-        Category::where('id', $req->id)->update([
+        Cms::where('id', $req->id)->update([
             'title' => $req->title,
-            'description' => $req->description,
+            'body' => $req->body,
 
         ]);
-        return redirect('/categories')->with('msg', 'Category updated!');
+        return redirect('/cms')->with('msg', 'Cms updated!');
     }
 
     /**
@@ -109,9 +107,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $cms = Cms::findOrFail($id);
+        $cms->delete();
 
-        return redirect('/categories')->with('msg', 'Category deleted!');
+        return redirect('/cms')->with('msg', 'Cms deleted!');
     }
 }

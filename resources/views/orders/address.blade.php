@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Categories</title>
+        <title>Ecomm-App | Address</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -43,18 +43,11 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-12">
-                            @if(session()->get('msg'))
-                            <div class="alert alert-success">
-                                {{ session()->get('msg') }}
-                            </div>
-                            @endif
-                        </div>
+                        
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Categories</h3>
-                                    <a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-warning">New category</a>
+                                    <h3 class="card-title">Customer Address</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -63,35 +56,41 @@
                                             <tr>
                                             <tr>
                                                 <th>Sr.no</th>
-                                                <th>Title</th>
-                                                <th>Description</th>
-                                                <th >Actions</th>
+                                                <th>Shipping name</th>
+                                                <th>Shipping email</th>
+                                                <th>Shipping address</th>
+                                                <th>Shipping mobile</th>
+                                                <th>Billing name</th>
+                                                <th>Billing email</th>
+                                                <th>Billing address</th>
+                                                <th>Billing mobile</th>
+                                                <th>Customer Id</th>
                                             </tr>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $count = 1; ?> 
-                                            @foreach($categories as $cat)
+                                            @php
+                                             $sn=1;
+                                            @endphp
+                                            @foreach($checkout as $c)
                                             <tr>
-                                                <td>{{$categories ->perPage()*($categories->currentPage()-1)+$count}}</td>
-                                                <td>{{$cat->title}} </td>
-                                                <td>{{$cat->description}}</td>
-                                                <td>
-                                                    <a href="{{ route('categories.edit', $cat->id)}}" class="btn btn-warning">Edit</a><br><br>
-                                                
-                                                    <form action="{{ route('categories.destroy', $cat->id)}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')" >Delete</button>
-                                                    </form>
-                                                </td>
+                                                <td>{{$sn}}</td>
+                                                <td>{{$c->name}} </td>
+                                                <td>{{$c->email}}</td>
+                                                <td>{{$c->address}}</td>
+                                                <td>{{$c->mobile}}</td>
+                                                <td>{{$c->bname}} </td>
+                                                <td>{{$c->bemail}}</td>
+                                                <td>{{$c->baddress}}</td>
+                                                <td>{{$c->bmobile}}</td>
+                                                <td>{{$c->user_id}}</td>
                                             </tr>
-                                            <?php $count++; ?>
+                                            @php
+                                            $sn++;
+                                           @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    {{$categories->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

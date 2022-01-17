@@ -72,14 +72,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if(count($data)>0) 
-                                            @endif
-                                            @php
-                                             $sn=1;
-                                            @endphp
+                                            <?php $count = 1; ?> 
                                             @foreach($data as $d)
                                             <tr>
-                                                <td>{{$sn}}</td>
+                                                <td>{{$data ->perPage()*($data->currentPage()-1)+$count}}</td>
                                                 <td>{{$d->name}} </td>
                                                 <td>{{$d->description}}</td> 
                                                 <td>{{$d->price}}</td>
@@ -94,9 +90,7 @@
                                                         <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                                                     </form>
                                                 </td>
-                                                @php
-                                                $sn++;
-                                               @endphp 
+                                                <?php $count++; ?>
                                                 @endforeach
                                             </tr>
                                            

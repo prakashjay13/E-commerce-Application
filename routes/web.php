@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 
@@ -33,7 +34,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::resource('banners', BannerController::class);
 
+    Route::resource('cms', CmsController::class);
+
     Route::resource('categories', CategoryController::class);
 
     Route::resource('products', ProductController::class);
+
+    Route::get('/checkout', [UserController::class, "checkout"]);
+
+    Route::get('/order', [UserController::class, "order"]);
 });

@@ -55,7 +55,7 @@
                                     <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Sr.no</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
@@ -64,18 +64,22 @@
                                             
                                         </thead>
                                         <tbody>
+                                            <?php $count = 1; ?>
                                             @foreach($contacts as $contact)
                                             <tr>
-                                                <td>{{$contact->id}}</td>
+                                                <td>{{$contacts ->perPage()*($contacts->currentPage()-1)+$count}}</td>
                                                 <td>{{$contact->name}}</td>
                                                 <td>{{$contact->email}}</td>
                                                 <td>{{$contact->mobile}}</td>
                                                 <td>{{$contact->message}}</td>
                                                
                                             </tr>
+                                            <?php $count++; ?>
                                             @endforeach
                                         </tbody>
                                     </table>
+
+                                    {{$contacts->links("pagination::bootstrap-4")}}
                                 </div>
                             </div>
                         </div>
