@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\product_attribute;
 use App\Models\product_category;
 use App\Models\product_image;
+use App\Models\User;
+use App\Models\Order;
 
 
 class ProductController extends Controller
@@ -170,5 +172,13 @@ class ProductController extends Controller
         $data->delete();
 
         return redirect('/products')->with('msg', 'Product deleted!');
+    }
+
+    public function regusers()
+    {
+        $userCount = User::where('role', 'Customer')->count();
+        $orderCount = Order::count();
+
+        return view('registered.users', compact('userCount', 'orderCount'));
     }
 }

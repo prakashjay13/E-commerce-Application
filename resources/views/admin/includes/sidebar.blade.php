@@ -133,6 +133,17 @@
                     </a>
                     
                 </li>
+
+                <li class="nav-item menu-open">
+                    <a href="/regusers" class="{{request()->is('regusers') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-file" aria-hidden="true"></i>&nbsp;
+                        <p>
+                            Report
+                            
+                        </p>
+                    </a>
+                    
+                </li>
                
 
         </nav>

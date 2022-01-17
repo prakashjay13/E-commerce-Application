@@ -10,6 +10,7 @@ use App\Models\product_attribute;
 use App\Models\product_category;
 use App\Models\product_image;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,8 @@ class ProductApiController extends Controller
 
     public function order($id)
     {
-        $order = Order::where('user_id', $id)->get();
+        $user = User::where('email', $id)->first();
+        $order = Order::where('user_id', $user->id)->get();
 
         return response(['order' => EcommResource::collection($order), 'err' => 0]);
     }

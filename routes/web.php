@@ -43,4 +43,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/checkout', [UserController::class, "checkout"]);
 
     Route::get('/order', [UserController::class, "order"]);
+
+    Route::get('/regusers', [ProductController::class, "regusers"]);
 });
