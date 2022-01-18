@@ -59,6 +59,7 @@
                                                 <th>Product name</th>
                                                 <th> Price</th>
                                                 <th> Quantity</th>
+                                                <th>Total Amount</th>
                                                 <th> Customer Id</th>
                                                
                                             </tr>
@@ -74,6 +75,7 @@
                                                 <td>{{$o->name}} </td>
                                                 <td>{{$o->price}}</td>
                                                 <td>{{$o->quantity}}</td>
+                                                <td>{{$o->quantity * $o->price}}</td>
                                                 <td>{{$o->user_id}}</td>
                                             </tr>
                                             @php

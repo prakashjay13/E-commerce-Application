@@ -65,7 +65,7 @@ class ApiController extends Controller
                 return response()->json(['err' => 'email and password does not match to our records'], 401);
             }
             $users = User::where('email', $request->email)->first();
-            return response()->json(['err' => 0, 'token' => $token, 'email' => $request->email, 'users' => $users], 200);
+            return response()->json(['err' => 0, 'msg' => 'You are logged in', 'token' => $token, 'email' => $request->email, 'users' => $users], 200);
         }
     }
     public function respondWithToken($token)
