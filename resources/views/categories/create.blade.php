@@ -43,7 +43,7 @@
     @endif
       <form method="post" action="{{ route('categories.store') }}">
           @csrf
-          <div class="row form-group m-auto col-5">  
+          <div class="form-group">  
               <label for="title">Title:</label>
               <input type="text" class="form-control" value="{{old('title')}}" name="title"/>
               @if($errors->has('title'))
@@ -51,7 +51,7 @@
               @endif 
           </div>
 
-          <div class="row form-group m-auto col-5">
+          <div class="form-group">
               <label for="description">Description:</label>
               <input type="textarea" class="form-control" value="{{old('description')}}" name="description"/>
               @if($errors->has('description'))
@@ -60,7 +60,7 @@
           </div>
           <br>
 
-          <div class="row form-group m-auto col-5">                       
+          <div class="form-group m-auto col-5">                       
           <button type="submit" class="btn btn-success">Add category</button>
           </div>
       </form>

@@ -41,7 +41,7 @@
         <form method="post" action="{{ route('categories.update', $category->id) }}">
             @method('PATCH') 
             @csrf
-            <div class="row form-group m-auto col-5">
+            <div class="form-group">
                 <label class="form-check-label">Title:</label>
                 <input type="text" class="form-control" name="title" value={{ $category->title }} />
                 @if($errors->has('title'))
@@ -50,7 +50,7 @@
             </div>
             <br>
 
-            <div class="row form-group m-auto col-5">
+            <div class="form-group">
                 <label class="form-check-label">Description:</label>
                 <input type="textarea" class="form-control" name="description" value={{ $category->description }} />
                 @if($errors->has('description'))

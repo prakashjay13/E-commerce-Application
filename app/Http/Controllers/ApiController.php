@@ -187,6 +187,7 @@ class ApiController extends Controller
 
         if ($checkout->save()) {
 
+
             return response(['checkout' => new EcommResource($checkout), 'msg' => 'SUBMITTED SUCESSFULLY', 'err' => 0]);
         } else {
 
