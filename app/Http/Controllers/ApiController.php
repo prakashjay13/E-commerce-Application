@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Checkout;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterUser;
 
 class ApiController extends Controller
 {
@@ -40,6 +42,8 @@ class ApiController extends Controller
             $user->status = 1;
             $user->role = 'Customer';
             if ($user->save()) {
+
+                Mail::to($req->email)->send(new RegisterUser($req->all()));
 
                 return response(['user' => new EcommResource($user), 'msg' => 'Registered Successfully', "err" => 0]);
             } else {
