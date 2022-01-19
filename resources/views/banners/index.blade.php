@@ -83,9 +83,9 @@
                                                 </td>
                                                 <td>
                                                     @if($a->status=='1')
-                                                      hidden
+                                                    <h5 class="text-danger">Inactive</h5>
                                                     @else
-                                                      visible
+                                                    <h5 class="text-success">Active</h5>   
                                                     @endif
                                                 </td>
                                                 <td>
@@ -128,7 +128,13 @@
         <!-- AdminLTE for demo purposes -->
         <script src="../../dist/js/demo.js"></script>
         <!-- Page specific script -->
-        
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021-2022 <a href="https://adminlte.io">Ecomm-Application</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.1.0
+            </div>
+        </footer>   
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
  </body>
    </html>    

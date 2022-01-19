@@ -78,7 +78,11 @@
                                                 <td>{{$users ->perPage()*($users->currentPage()-1)+$count}}</td>
                                                 <td>{{$user->full_name}}</td>
                                                 <td>{{$user->email}}</td>
-                                                <td>{{$user->status}}</td>
+                                                @if($user->status==1)
+                                                <td class="text-success">Active</td>    
+                                                @else
+                                                 <td class="text-danger">Inactive</td>   
+                                                @endif
                                                 <td>{{$user->role}}</td>
                                                 <td>
                                                     <a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning">Edit</a><br><br>
@@ -121,6 +125,13 @@
         <!-- AdminLTE for demo purposes -->
         <script src="../../dist/js/demo.js"></script>
         <!-- Page specific script -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021-2022 <a href="https://adminlte.io">Ecomm-Application</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.1.0
+            </div>
+        </footer>
         
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
  </body>

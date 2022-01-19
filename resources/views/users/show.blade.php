@@ -59,7 +59,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Mobile</th>
-                                                <th>Message</th>
+                                                <th>Actions</th>
                                             </tr>
                                             
                                         </thead>
@@ -71,7 +71,29 @@
                                                 <td>{{$contact->name}}</td>
                                                 <td>{{$contact->email}}</td>
                                                 <td>{{$contact->mobile}}</td>
-                                                <td>{{$contact->message}}</td>
+                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                                                    Read Message
+                                                  </button>
+                                                  
+                                                  <!-- Modal -->
+                                                  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLongTitle">Customer Message:</h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {{$contact->message}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div></td>
                                                
                                             </tr>
                                             <?php $count++; ?>
@@ -110,6 +132,7 @@
         <!-- AdminLTE for demo purposes -->
         <script src="../../dist/js/demo.js"></script>
         <!-- Page specific script -->
+        
         
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
  </body>

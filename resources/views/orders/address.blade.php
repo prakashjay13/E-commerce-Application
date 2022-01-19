@@ -56,15 +56,14 @@
                                             <tr>
                                             <tr>
                                                 <th>Sr.no</th>
-                                                <th>Shipping name</th>
-                                                <th>Shipping email</th>
+                                                <th>Customer name</th>
+                                                <th>Customer email</th>
                                                 <th>Shipping address</th>
                                                 <th>Shipping mobile</th>
                                                 <th>Billing name</th>
                                                 <th>Billing email</th>
                                                 <th>Billing address</th>
                                                 <th>Billing mobile</th>
-                                                <th>Customer Id</th>
                                             </tr>
                                             </tr>
                                         </thead>
@@ -81,7 +80,6 @@
                                                 <td>{{$c->bemail}}</td>
                                                 <td>{{$c->baddress}}</td>
                                                 <td>{{$c->bmobile}}</td>
-                                                <td>{{$c->user_id}}</td>
                                             </tr>
                                             <?php $count++; ?>
                                             @endforeach
@@ -113,7 +111,13 @@
         <!-- AdminLTE for demo purposes -->
         <script src="../../dist/js/demo.js"></script>
         <!-- Page specific script -->
-        
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021-2022 <a href="https://adminlte.io">Ecomm-Application</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.1.0
+            </div>
+        </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
  </body>
    </html>    

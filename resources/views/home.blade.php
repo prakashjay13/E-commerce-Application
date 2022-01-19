@@ -24,6 +24,7 @@
         </div>
     </div>
 </div>
-@include('admin.includes.foot')
+
 </body>
+
 </html>

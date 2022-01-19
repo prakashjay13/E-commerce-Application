@@ -87,8 +87,8 @@
 
             <div class="form-group col-md-12">
                 <label for="status">Status: <br>
-              <input type="radio" class="form-check-input" name="status" value={{ $user->status }}>Active <br>
-              <input type="radio" class="form-check-input" name="status" value={{ $user->status }}>Inactive
+                    <input type="radio" class="form-check-input"  name="status" value="1">Active<br>
+                    <input type="radio" class="form-check-input"  name="status" value="0">Inactive
                 </label>
               @if($errors->has('status'))
                  <label class="text text-danger">{{$errors->first('status')}}</label>  
