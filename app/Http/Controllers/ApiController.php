@@ -104,6 +104,7 @@ class ApiController extends Controller
             $contact->email = $req->email;
             $contact->mobile = $req->mobile;
             $contact->message = $req->message;
+            $contact->created_at = $req->created_at;
             if ($contact->save()) {
 
                 return response(['contact' => new EcommResource($contact), 'msg' => 'We will get back to you shortly!', "err" => 1]);

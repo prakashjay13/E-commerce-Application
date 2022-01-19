@@ -60,6 +60,7 @@
                                                 <th>Email</th>
                                                 <th>Mobile</th>
                                                 <th>Actions</th>
+                                                <th>Time</th>
                                             </tr>
                                             
                                         </thead>
@@ -94,7 +95,7 @@
                                                       </div>
                                                     </div>
                                                   </div></td>
-                                               
+                                               <td>{{$contact->created_at}}</td>
                                             </tr>
                                             <?php $count++; ?>
                                             @endforeach
