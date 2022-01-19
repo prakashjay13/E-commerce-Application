@@ -69,12 +69,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                             $sn=1;
-                                            @endphp
+                                            <?php $count = 1; ?> 
                                             @foreach($checkout as $c)
                                             <tr>
-                                                <td>{{$sn}}</td>
+                                                <td>{{$checkout->perPage()*($checkout->currentPage()-1)+$count}}</td>
                                                 <td>{{$c->name}} </td>
                                                 <td>{{$c->email}}</td>
                                                 <td>{{$c->address}}</td>
@@ -85,12 +83,11 @@
                                                 <td>{{$c->bmobile}}</td>
                                                 <td>{{$c->user_id}}</td>
                                             </tr>
-                                            @php
-                                            $sn++;
-                                           @endphp
+                                            <?php $count++; ?>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{$checkout->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

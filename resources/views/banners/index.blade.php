@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Banners</h3>
-                                    <a style="margin: 19px;" href="{{ route('banners.create')}}" class="btn btn-warning">New Banner</a>
+                                    <a style="margin-left: 990px;" href="{{ route('banners.create')}}" class="btn btn-info">New Banner</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -62,7 +62,7 @@
                                         <thead>
                                             <tr>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Sr.no</th>
                                                 <th>Heading</th>
                                                 <th>Description</th>
                                                 <th>Image</th>
@@ -72,9 +72,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $count = 1; ?> 
                                             @foreach($data as $a)
                                             <tr>
-                                                <td>{{$a->id}}</td>
+                                                <td>{{$data->perPage()*($data->currentPage()-1)+$count}}</td>
                                                 <td>{{$a->heading}}</td>
                                                 <td>{{$a->description}}</td>
                                                 <td>
@@ -97,9 +98,11 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                            <?php $count++; ?>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{$data->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::all();
+        $users = User::paginate(3);
 
         return view('users.index', compact('users'));
     }
@@ -141,7 +141,7 @@ class UserController extends Controller
      */
     public function checkout()
     {
-        $checkout = Checkout::all();
+        $checkout = Checkout::paginate(6);
 
         return view('orders.address', compact('checkout'));
     }
@@ -154,7 +154,7 @@ class UserController extends Controller
      */
     public function order()
     {
-        $order = Order::all();
+        $order = Order::paginate(6);
 
         return view('orders.order', compact('order'));
     }

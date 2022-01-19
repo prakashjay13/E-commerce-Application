@@ -60,7 +60,7 @@
           </div>
           <br>
 
-          <div class="form-group m-auto col-5">                       
+          <div class="form-group">                       
           <button type="submit" class="btn btn-success">Add category</button>
           </div>
       </form>

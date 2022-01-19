@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Users</h3>
-                                    <a style="margin: 19px;" href="{{ route('users.create')}}" class="btn btn-warning">New user</a>
+                                    <a style="margin-left: 990px;" href="{{ route('users.create')}}" class="btn btn-info">New user</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -62,7 +62,7 @@
                                         <thead>
                                             <tr>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Sr.no</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Status</th>
@@ -72,9 +72,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $count = 1; ?> 
                                             @foreach($users as $user)
                                             <tr>
-                                                <td>{{$user->id}}</td>
+                                                <td>{{$users ->perPage()*($users->currentPage()-1)+$count}}</td>
                                                 <td>{{$user->full_name}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->status}}</td>
@@ -90,9 +91,11 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                            <?php $count++; ?>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{$users->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

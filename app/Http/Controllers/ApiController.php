@@ -20,7 +20,7 @@ class ApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkout', 'cms']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkout', 'contact', 'cms']]);
     }
     public function register(Request $req)
     {

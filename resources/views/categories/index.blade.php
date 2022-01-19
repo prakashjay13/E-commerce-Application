@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Categories</h3>
-                                    <a style="margin: 19px;" href="{{ route('categories.create')}}" class="btn btn-warning">New category</a>
+                                    <a style="margin-left: 990px;" href="{{ route('categories.create')}}" class="btn btn-info">New category</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

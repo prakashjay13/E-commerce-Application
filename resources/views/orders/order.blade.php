@@ -66,24 +66,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                             $sn=1;
-                                            @endphp
+                                            <?php $count = 1; ?> 
                                             @foreach($order as $o)
                                             <tr>
-                                                <td>{{$sn}}</td>
+                                                <td>{{$order->perPage()*($order->currentPage()-1)+$count}}</td>
                                                 <td>{{$o->name}} </td>
                                                 <td>{{$o->price}}</td>
                                                 <td>{{$o->quantity}}</td>
                                                 <td>{{$o->quantity * $o->price}}</td>
                                                 <td>{{$o->user_id}}</td>
                                             </tr>
-                                            @php
-                                            $sn++;
-                                           @endphp
+                                            <?php $count++; ?>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{$order->links("pagination::bootstrap-4")}}
                                   
             </section>
         </div>

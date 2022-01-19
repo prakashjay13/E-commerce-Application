@@ -53,8 +53,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Cms</h3>
-                                    <a style="margin: 19px;" href="{{ route('cms.create')}}" class="btn btn-warning">New cms</a>
+                                    <h3 class="card-title">CMS</h3>
+                                    <a style="margin-left: 1050px;" href="{{ route('cms.create')}}" class="btn btn-info">New cms</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
