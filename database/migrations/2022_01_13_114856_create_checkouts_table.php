@@ -23,7 +23,7 @@ class CreateCheckoutsTable extends Migration
             $table->string('bname');
             $table->string('baddress');
             $table->string('bmobile');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

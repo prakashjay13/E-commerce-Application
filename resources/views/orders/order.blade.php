@@ -61,6 +61,9 @@
                                                 <th> Quantity</th>
                                                 <th>Total Amount</th>
                                                 <th> Customer Id</th>
+                                                <th>Tracking Id</th>
+                                                <th>Status</th>
+                                                <th>Update Status</th>
                                                
                                             </tr>
                                             </tr>
@@ -75,6 +78,10 @@
                                                 <td>{{$o->quantity}}</td>
                                                 <td>{{$o->quantity * $o->price}}</td>
                                                 <td>{{$o->user_id}}</td>
+                                                <td>{{$o->tracking_id}}</td>
+                                                <td>{{$o->status}}</td>
+                                                <td><a href="/editstatus/{{$o->id}}" class="btn btn-warning">Edit</a></td>
+                                               
                                             </tr>
                                             <?php $count++; ?>
                                             @endforeach

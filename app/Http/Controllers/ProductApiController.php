@@ -55,4 +55,12 @@ class ProductApiController extends Controller
 
         return response(['order' => EcommResource::collection($order), 'err' => 0]);
     }
+
+    public function track($id)
+    {
+
+        $order = Order::where('tracking_id', $id)->get();
+
+        return response(['track' => EcommResource::collection($order), 'err' => 0]);
+    }
 }

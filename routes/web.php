@@ -8,9 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
-
-
-
+use App\Http\Controllers\StatusController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,6 +30,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::resource('coupons', CouponController::class);
 
+    Route::resource('status', StatusController::class);
+
     Route::resource('banners', BannerController::class);
 
     Route::resource('cms', CmsController::class);
@@ -42,7 +42,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/checkout', [UserController::class, "checkout"]);
 
-    Route::get('/order', [UserController::class, "order"]);
+
 
     Route::get('/regusers', [ProductController::class, "regusers"]);
+
+    Route::get('/editstatus/{id}', [StatusController::class, 'editstatus']);
+    Route::post('/updatestatus', [StatusController::class, "updatestatus"]);
+    Route::get('/order', [StatusController::class, "order"]);
 });

@@ -47,4 +47,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/checkout', [ApiController::class, 'checkout']);
 
     Route::get('/order/{id}', [ProductApiController::class, 'order']);
+
+    Route::get('/track/{id}', [ProductApiController::class, 'track']);
 });

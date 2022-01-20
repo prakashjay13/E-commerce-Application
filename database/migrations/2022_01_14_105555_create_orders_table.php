@@ -18,7 +18,9 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->string('quantity');
             $table->string('price');
-            $table->foreignId('user_id')->constrained('users');
+            $table->string('tracking_id');
+            $table->string('status');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

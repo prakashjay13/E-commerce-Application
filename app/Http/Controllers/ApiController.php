@@ -15,6 +15,8 @@ use App\Models\Checkout;
 use App\Models\Order;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegisterUser;
+use App\Mail\UserDetailstoAdmin;
+use App\Mail\OrderDetails;
 
 class ApiController extends Controller
 {
@@ -44,6 +46,8 @@ class ApiController extends Controller
             if ($user->save()) {
 
                 Mail::to($req->email)->send(new RegisterUser($req->all()));
+                Mail::to("admin@gmail.com")->send(new UserDetailstoAdmin($req->all()));
+
 
                 return response(['user' => new EcommResource($user), 'msg' => 'Registered Successfully', "err" => 0]);
             } else {
@@ -62,7 +66,7 @@ class ApiController extends Controller
             return response()->json($validator->errors());
         } else {
             if (!$token = auth()->guard('api')->attempt($validator->validated())) {
-                return response()->json(['err' => 'email and password does not match to our records'], 401);
+                return response()->json(['err' => 'email and password does not match to our records']);
             }
             $users = User::where('email', $request->email)->first();
             return response()->json(['err' => 0, 'msg' => 'You are logged in', 'token' => $token, 'email' => $request->email, 'users' => $users], 200);
@@ -182,12 +186,15 @@ class ApiController extends Controller
             $order->name = $c['name'];
             $order->price = $c['price'];
             $order->quantity = $c['quantity'];
+            $order->status = "Processing";
+            $order->tracking_id = rand();
             $order->user_id = $users->id;
             $order->save();
         }
 
         if ($checkout->save()) {
-
+            // $orderdetails = Checkout::join('orders', 'orders.user_id', '=', 'checkouts.user_id')->get();
+            // Mail::to($req->email)->send(new OrderDetails($orderdetails));
 
             return response(['checkout' => new EcommResource($checkout), 'msg' => 'SUBMITTED SUCESSFULLY', 'err' => 0]);
         } else {
@@ -195,4 +202,15 @@ class ApiController extends Controller
             return response()->json(['msg' => 'failed regsitertaion']);
         }
     }
+
+
+
+    // $orderdetails = Checkout::join('orders', 'orders.user_id', '=', 'checkouts.user_id')->select(
+    //     'orders.name as oname',
+    //     'orders.price as price',
+    //     'orders.quantity as quantity',
+    //     'orders.id as oid',
+    //     'checkouts.email as email',
+    //     'checkouts.address as address'
+    // )->get();
 }
