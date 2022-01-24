@@ -193,7 +193,19 @@ class ApiController extends Controller
         }
 
         if ($checkout->save()) {
-            // $orderdetails = Checkout::join('orders', 'orders.user_id', '=', 'checkouts.user_id')->get();
+            // $orderdetails = Checkout::with(['Order'])->get();
+            // $orderdetails = Checkout::join('orders', 'orders.user_id', '=', 'checkouts.user_id')->get(
+            //     [
+            //         'orders.name as oname',
+            //         'orders.price as price',
+            //         'orders.quantity as quantity',
+            //         'orders.id as oid',
+            //         'checkouts.email as email',
+            //         'orders.tracking_id as trackid',
+            //         'checkouts.address as address'
+            //     ]
+            // );
+
             // Mail::to($req->email)->send(new OrderDetails($orderdetails));
 
             return response(['checkout' => new EcommResource($checkout), 'msg' => 'SUBMITTED SUCESSFULLY', 'err' => 0]);
@@ -202,15 +214,4 @@ class ApiController extends Controller
             return response()->json(['msg' => 'failed regsitertaion']);
         }
     }
-
-
-
-    // $orderdetails = Checkout::join('orders', 'orders.user_id', '=', 'checkouts.user_id')->select(
-    //     'orders.name as oname',
-    //     'orders.price as price',
-    //     'orders.quantity as quantity',
-    //     'orders.id as oid',
-    //     'checkouts.email as email',
-    //     'checkouts.address as address'
-    // )->get();
 }

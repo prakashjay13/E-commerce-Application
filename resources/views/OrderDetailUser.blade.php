@@ -37,8 +37,12 @@
              <td>{{$quantity}}</td>
          </tr>
             <tr>
-                <th><b>Order Id :</b></th>
-                <td>{{$order_id}}</td>
+                <th><b>Tracking Id :</b></th>
+                <td>{{$tracking_id}}</td>
+            </tr>
+            <tr>
+                <th><b>Status:</b></th>
+                <td>{{$status}}</td>
             </tr>
          <tr>
             <th><b>Address :</b></th>

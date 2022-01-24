@@ -94,7 +94,8 @@
                                                         </div>
                                                       </div>
                                                     </div>
-                                                  </div></td>
+                                                  </div>
+                                                </td>
                                                <td>{{$contact->created_at}}</td>
                                             </tr>
                                             <?php $count++; ?>

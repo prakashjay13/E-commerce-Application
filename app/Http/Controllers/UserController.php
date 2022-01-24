@@ -146,20 +146,6 @@ class UserController extends Controller
         return view('orders.address', compact('checkout'));
     }
 
-
-    /**
-     * For showing order data
-     *
-     * @return void
-     */
-    public function order()
-    {
-        $order = Order::paginate(6);
-
-        return view('orders.order', compact('order'));
-    }
-
-
     /**
      * Show the form for editing the specified resource.
      *
