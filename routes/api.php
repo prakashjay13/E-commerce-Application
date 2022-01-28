@@ -36,7 +36,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/category', [ProductApiController::class, 'category']);
 
-    Route::get('/coupon', [CouponController::class, 'coupon']);
+    Route::get('/coupon', [ApiController::class, 'coupon']);
 
     Route::get('/profile', [ApiController::class, 'profile']);
 
@@ -49,4 +49,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/order/{id}', [ProductApiController::class, 'order']);
 
     Route::get('/track/{id}', [ProductApiController::class, 'track']);
+
+    Route::post('/wishlist', [ApiController::class, 'wishlist']);
 });

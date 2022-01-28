@@ -59,7 +59,6 @@
                                                 <th>Product name</th>
                                                 <th> Price</th>
                                                 <th> Quantity</th>
-                                                <th>Total Amount</th>
                                                 <th> Customer Id</th>
                                                 <th>Tracking Id</th>
                                                 <th>Status</th>
@@ -76,7 +75,6 @@
                                                 <td>{{$o->name}} </td>
                                                 <td>{{$o->price}}</td>
                                                 <td>{{$o->quantity}}</td>
-                                                <td>{{$o->quantity * $o->price}}</td>
                                                 <td>{{$o->user_id}}</td>
                                                 <td>{{$o->tracking_id}}</td>
                                                 <td>{{$o->status}}</td>

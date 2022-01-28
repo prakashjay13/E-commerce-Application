@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Banners</h3>
-                                    <a style="margin-left: 990px;" href="{{ route('banners.create')}}" class="btn btn-info">New Banner</a>
+                                    <a href="{{ route('banners.create')}}"  class="btn btn-info float-right">New Banner</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

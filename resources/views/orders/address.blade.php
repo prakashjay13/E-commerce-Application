@@ -64,6 +64,8 @@
                                                 <th>Billing email</th>
                                                 <th>Billing address</th>
                                                 <th>Billing mobile</th>
+                                                <th>Checkout Amount</th>
+                                                <th>User Id</th>
                                             </tr>
                                             </tr>
                                         </thead>
@@ -80,6 +82,8 @@
                                                 <td>{{$c->bemail}}</td>
                                                 <td>{{$c->baddress}}</td>
                                                 <td>{{$c->bmobile}}</td>
+                                                <td>{{$c->checkoutamount}}</td>
+                                                <td>{{$c->user_id}}</td>
                                             </tr>
                                             <?php $count++; ?>
                                             @endforeach

@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Users</h3>
-                                    <a style="margin-left: 990px;" href="{{ route('users.create')}}" class="btn btn-info">New user</a>
+                                    <a  href="{{ route('users.create')}}" class="btn btn-info float-right">New user</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -65,6 +65,7 @@
                                                 <th>Sr.no</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>ID</th>
                                                 <th>Status</th>
                                                 <th>Role</th>
                                                 <th>Actions</th>
@@ -78,6 +79,7 @@
                                                 <td>{{$users ->perPage()*($users->currentPage()-1)+$count}}</td>
                                                 <td>{{$user->full_name}}</td>
                                                 <td>{{$user->email}}</td>
+                                                <td>{{$user->id}}</td>
                                                 @if($user->status==1)
                                                 <td class="text-success">Active</td>    
                                                 @else

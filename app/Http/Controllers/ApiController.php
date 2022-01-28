@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RegisterUser;
 use App\Mail\UserDetailstoAdmin;
 use App\Mail\OrderDetails;
+use App\Models\Wishlist;
 
 class ApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkout', 'contact', 'cms']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkout', 'contact', 'coupon', 'cms', 'wishlist']]);
     }
     public function register(Request $req)
     {
@@ -179,8 +180,10 @@ class ApiController extends Controller
         $checkout->bemail = $req->bemail;
         $checkout->baddress = $req->baddress;
         $checkout->bmobile = $req->bmobile;
+        $checkout->checkoutamount = $req->camount;
         $checkout->user_id = $users->id;
         $u = $req->cart;
+
         foreach ($u as $c) {
             $order = new Order();
             $order->name = $c['name'];
@@ -212,6 +215,18 @@ class ApiController extends Controller
         } else {
 
             return response()->json(['msg' => 'failed regsitertaion']);
+        }
+    }
+
+    public function wishlist(Request $req)
+    {
+        return $req;
+        $user = User::where('email', $req->email)->first();
+        $wishlist = new Wishlist();
+        $wishlist->user_id = $user->id;
+        $wishlist->product_id = $req->product_id;
+        if ($wishlist->save()) {
+            return response()->json(['msg' => 'Product added to wishlist']);
         }
     }
 }

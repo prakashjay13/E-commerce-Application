@@ -61,14 +61,14 @@
           </div>
           <div class="form-group">
               <label for="price">Price:</label>
-              <input type="text" class="form-control" value="{{old('price')}}" name="price"/>
+              <input type="text" class="form-control" value="{{old('price')}}" required name="price"/>
               @if($errors->has('price'))
               <label class="text-danger">{{$errors->first('price')}}</label>
               @endif 
           </div>
           <div class="form-group">
               <label for="quantity">Quantity:</label>
-              <input type="text" class="form-control" value="{{old('quantity')}}"  name="quantity"/>
+              <input type="text" class="form-control" value="{{old('quantity')}}" required name="quantity"/>
               @if($errors->has('quantity'))
               <label class="text-danger">{{$errors->first('quantity')}}</label>
               @endif 

@@ -44,7 +44,7 @@
             @csrf
             <div class="form-group">
                 <label  for="name">Name:</label>
-                <input type="text" class="form-control" name="name" value={{ $data->name }} />
+                <input type="text" class="form-control" name="name" required value={{ $data->name }} />
                 @if($errors->has('name'))
                 <label class="text text-danger">{{$errors->first('name')}}</label>  
                 @endif 
@@ -52,7 +52,7 @@
             
             <div class="form-group">
                 <label for="description">Description:</label>
-              <input type="text" class="form-control" name="description" value={{ $data->description }}/>
+              <input type="text" class="form-control" name="description" required value={{ $data->description }}/>
               @if($errors->has('description'))
                <label class="text text-danger">{{$errors->first('description')}}</label>  
                @endif 
@@ -60,7 +60,7 @@
               </div>
             <div class="form-group">
                 <label  for="price">Price:</label>
-                <input type="text" class="form-control" name="price" value={{ $data->price }} />
+                <input type="text" class="form-control" name="price" required value={{ $data->price }} />
                 @if($errors->has('price'))
                 <label class="text text-danger">{{$errors->first('price')}}</label>  
                 @endif 
@@ -68,7 +68,7 @@
             
              <div class="form-group">
                 <label for="quantity">Quantity:</label>
-                <input type="number" class="form-control"  name="quantity" value={{ $data->quantity }} />
+                <input type="number" class="form-control"  name="quantity" required value={{ $data->quantity }} />
                 @if($errors->has('quantity'))
                 <label class="text text-danger">{{$errors->first('quantity')}}</label>  
                 @endif 

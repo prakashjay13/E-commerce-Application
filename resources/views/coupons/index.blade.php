@@ -54,7 +54,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Coupons</h3>
-                                    <a style="margin-left: 990px;" href="{{ route('coupons.create')}}" class="btn btn-info">New coupon</a>
+                                    <a href="{{ route('coupons.create')}}"  class="btn btn-info float-right">New coupon</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
