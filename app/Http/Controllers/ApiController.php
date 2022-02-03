@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Contact;
 use App\Models\Coupon;
 use App\Models\Cms;
+use App\Models\Configuration;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,7 @@ class ApiController extends Controller
     }
     public function register(Request $req)
     {
+        $admin = Configuration::where('email_type', '=', 'Admin')->first();
         $validator = Validator::make($req->all(), [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -47,7 +49,7 @@ class ApiController extends Controller
             if ($user->save()) {
 
                 Mail::to($req->email)->send(new RegisterUser($req->all()));
-                Mail::to("admin@gmail.com")->send(new UserDetailstoAdmin($req->all()));
+                Mail::to($admin->email)->send(new UserDetailstoAdmin($req->all()));
 
 
                 return response(['user' => new EcommResource($user), 'msg' => 'Registered Successfully', "err" => 0]);

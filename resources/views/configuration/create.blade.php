@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{asset('dist/img/AdminLTELogo.png')}}" type="image/icon type">
-        <title>Ecomm-App | Cms</title>
+        <title>Ecomm-App | Configuration</title>
     
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,31 +36,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="container">
  <div class="col-sm-8 offset-sm-2">
-    <h1 >Add a cms</h1>
+    <h1 >Add configuration</h1>
   <div>
     @if(Session::has('msg'))
     <div class="alert alert-danger">{{Session::get('msg')}}</div>
     @endif
-      <form method="post" action="{{ route('cms.store') }}">
+      <form method="post" action="{{ route('configuration.store') }}">
           @csrf
           <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" class="form-control" value="{{old('title')}}"  name="title"/>
-            @if($errors->has('title'))
-            <label class="text-danger">{{$errors->first('title')}}</label>
+            <label for="email_type">Email type:</label>
+            <input type="text" class="form-control" value="{{old('email_type')}}"  name="email_type"/>
+            @if($errors->has('email_type'))
+            <label class="text-danger">{{$errors->first('email_type')}}</label>
             @endif 
         </div>
 
         <div class="form-group">
-            <label for="body">Body:</label>
-            <textarea class="form-control" value="{{old('body')}}"  name="body" ></textarea>
-            @if($errors->has('body'))
-            <label class="text-danger">{{$errors->first('body')}}</label>
+            <label for="email">Email:</label>
+            <input class="form-control" value="{{old('email')}}"  name="email" />
+            @if($errors->has('email'))
+            <label class="text-danger">{{$errors->first('email')}}</label>
             @endif 
         </div>
 
         <div class="form-group m-auto col-5">                       
-            <button type="submit" class="btn btn-success">Add cms</button>
+            <button type="submit" class="btn btn-success">Add configuration</button>
             </div>
       </form>
   </div>

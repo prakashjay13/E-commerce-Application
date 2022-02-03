@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CmsController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StatusController;
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('banners', BannerController::class);
 
     Route::resource('cms', CmsController::class);
+
+    Route::resource('configuration', ConfigController::class);
 
     Route::resource('categories', CategoryController::class);
 

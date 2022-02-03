@@ -85,6 +85,17 @@
                 </li>
 
                 <li class="nav-item menu-open">
+                    <a href="/configuration" class="{{request()->is('configuration*') ? 'active' : ''}} nav-link ">
+                        <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
+                        <p>
+                          Config Management
+                           
+                        </p>
+                    </a>
+                    
+                </li>
+
+                <li class="nav-item menu-open">
                     <a href="/categories" class="{{request()->is('categories*') ? 'active' : ''}} nav-link ">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;
                         <p>
